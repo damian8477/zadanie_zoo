@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class Animal {
+
+    public String type;
     public String name;
     public double foodDemand;
     public int zoneId;
+
 }

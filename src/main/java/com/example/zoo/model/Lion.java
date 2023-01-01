@@ -4,7 +4,10 @@ import lombok.Data;
 
 @Data
 public class Lion extends Animal{
-    public Lion(String name, double foodDemand, int zoneId) {
-        super(name, 11, zoneId);
+    private final static String LION = "LION";
+
+    public Lion(String name, int zoneId) {
+        super(LION, name, 11, zoneId);
     }
+
 }

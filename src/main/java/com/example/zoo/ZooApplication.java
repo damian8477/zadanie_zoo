@@ -8,12 +8,10 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableAutoConfiguration
-@EnableScheduling
 public class ZooApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ZooApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ZooApplication.class, args);
+    }
 
 }

@@ -4,7 +4,10 @@ import lombok.Data;
 
 @Data
 public class Rabbit extends Animal{
-    public Rabbit(String name, double foodDemand, int zoneId) {
-        super(name, 4, zoneId);
+    private final static String RABBIT = "RABBIT";
+
+    public Rabbit(String name, int zoneId) {
+        super(RABBIT, name, 4, zoneId);
     }
+
 }

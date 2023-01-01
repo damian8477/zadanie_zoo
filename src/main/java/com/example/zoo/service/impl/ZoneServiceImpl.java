@@ -1,31 +1,34 @@
 package com.example.zoo.service.impl;
 
+import com.example.zoo.constants.Constants;
 import com.example.zoo.model.dto.ZoneDTO;
-import com.example.zoo.model.db.Zone;
-import com.example.zoo.model.answer.BoolStringAnswer;
+import com.example.zoo.model.entity.Zone;
+import com.example.zoo.model.response.BasicResponse;
 import com.example.zoo.repository.ZoneRepository;
 import com.example.zoo.service.ZoneService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ZoneServiceImpl implements ZoneService {
     private final ZoneRepository zoneRepository;
 
     @Override
-    public BoolStringAnswer addZone(Zone zone) {
-        try{
-            if(zoneRepository.findByName(zone.getName()) != null) return new BoolStringAnswer(false, "Strefa o takiej nazwie już istnieje");
+    public BasicResponse addZone(Zone zone) {
+        try {
+            if (!isNull(zoneRepository.findByName(zone.getName())))
+                return new BasicResponse(false, Constants.ZONE_NAME);
             zoneRepository.save(zone);
-            return new BoolStringAnswer(true, "Strefa dodana");
-        }catch (Exception ignored){
-            return new BoolStringAnswer(false, "Blad podczas dodania");
-
+            return new BasicResponse(true, Constants.ZONE_ADD);
+        } catch (Exception ignored) {
+            return new BasicResponse(false, Constants.ZONE_ERROR);
         }
     }
 
@@ -36,4 +39,5 @@ public class ZoneServiceImpl implements ZoneService {
                 .map(zone -> new ModelMapper().map(zone, ZoneDTO.class))
                 .collect(Collectors.toList());
     }
+
 }

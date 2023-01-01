@@ -1,9 +1,11 @@
 package com.example.zoo.service;
 
-import com.example.zoo.model.answer.ReportHighestConsumptionZone;
-import com.example.zoo.model.answer.ReportLeastAnimalsZone;
+import com.example.zoo.model.response.ReportHighestConsumptionZoneResponse;
+import com.example.zoo.model.response.ReportLeastAnimalsZoneResponse;
 
 public interface ReportService {
-    ReportHighestConsumptionZone getReportHighestConsumptionZone();
-    ReportLeastAnimalsZone getReportLeastAnimalsZone();
+
+    ReportHighestConsumptionZoneResponse getReportHighestConsumptionZone();
+
+    ReportLeastAnimalsZoneResponse getReportLeastAnimalsZone();
 }

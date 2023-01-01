@@ -1,18 +1,18 @@
 package com.example.zoo.service.impl;
 
 
+import com.example.zoo.constants.Constants;
 import com.example.zoo.exception.PrzekroczonyLimitJedzeniaException;
-import com.example.zoo.model.db.Animals;
+import com.example.zoo.model.entity.Animals;
 import com.example.zoo.model.Elephant;
 import com.example.zoo.model.Lion;
 import com.example.zoo.model.Rabbit;
-import com.example.zoo.model.answer.BoolStringAnswer;
+import com.example.zoo.model.response.BasicResponse;
 import com.example.zoo.model.dto.AnimalsDTO;
-import com.example.zoo.model.dto.ZoneDTO;
 import com.example.zoo.repository.AnimalsRepository;
 import com.example.zoo.repository.ZoneRepository;
 import com.example.zoo.service.ZooService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,69 +20,74 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ZooServiceImpl implements ZooService {
     private final AnimalsRepository animalsRepository;
     private final ZoneRepository zoneRepository;
 
     @Override
-    public BoolStringAnswer addElephant(Elephant elephant) throws PrzekroczonyLimitJedzeniaException{
-        if (zoneRepository.findById(elephant.getZoneId()) != null) {
-            if (animalsRepository.findAllByZoneId(elephant.getZoneId()).stream()
+    public BasicResponse addElephant(Elephant elephant) throws PrzekroczonyLimitJedzeniaException {
+        if (!isNull(zoneRepository.findById(elephant.getZoneId()))) {
+            double foodQty = animalsRepository.findAllByZoneId(elephant.getZoneId()).stream()
                     .mapToDouble(Animals::getFoodDemand)
-                    .sum() + elephant.getFoodDemand() > 100) {
-                throw new PrzekroczonyLimitJedzeniaException("Za mało jedzonka w tej strefie, wybierz inną");
+                    .sum() + elephant.getFoodDemand();
+            if (foodQty > 100) {
+                throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
             animalsRepository.save(Animals.builder()
-                    .type("ELEPHANT")
+                    .type(elephant.getType())
                     .name(elephant.getName())
                     .zoneId(elephant.getZoneId())
                     .foodDemand(elephant.getFoodDemand())
                     .build());
-            return new BoolStringAnswer(true, "Zwierze zostało dodane do wybranej strefy");
+            return new BasicResponse(true, Constants.ANIMAL_ADD);
         } else {
-            return new BoolStringAnswer(false, "Wybrana strefa nie istnieje");
+            return new BasicResponse(false, Constants.ZONE_MISS);
         }
     }
 
     @Override
-    public BoolStringAnswer addLion(Lion lion) throws PrzekroczonyLimitJedzeniaException{
-        if (zoneRepository.findById(lion.getZoneId()) != null) {
-            if (animalsRepository.findAllByZoneId(lion.getZoneId()).stream()
+    public BasicResponse addLion(Lion lion) throws PrzekroczonyLimitJedzeniaException {
+        if (!isNull(zoneRepository.findById(lion.getZoneId()))) {
+            double foodQty = animalsRepository.findAllByZoneId(lion.getZoneId()).stream()
                     .mapToDouble(Animals::getFoodDemand)
-                    .sum() + lion.getFoodDemand() > 100) {
-                throw new PrzekroczonyLimitJedzeniaException("Za mało jedzonka w tej strefie, wybierz inną");
+                    .sum() + lion.getFoodDemand();
+            if (foodQty > 100) {
+                throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
             animalsRepository.save(Animals.builder()
-                    .type("LION")
+                    .type(lion.getType())
                     .name(lion.getName())
                     .zoneId(lion.getZoneId())
                     .foodDemand(lion.getFoodDemand())
                     .build());
-            return new BoolStringAnswer(true, "Zwierze zostało dodane do wybranej strefy");
+            return new BasicResponse(true, Constants.ANIMAL_ADD);
         } else {
-            return new BoolStringAnswer(false, "Wybrana strefa nie istnieje");
+            return new BasicResponse(false, Constants.ZONE_MISS);
         }
     }
 
     @Override
-    public BoolStringAnswer addRabbit(Rabbit rabbit) throws PrzekroczonyLimitJedzeniaException {
-        if (zoneRepository.findById(rabbit.getZoneId()) != null) {
-            if (animalsRepository.findAllByZoneId(rabbit.getZoneId()).stream()
+    public BasicResponse addRabbit(Rabbit rabbit) throws PrzekroczonyLimitJedzeniaException {
+        if (!isNull(zoneRepository.findById(rabbit.getZoneId()))) {
+            double foodQty = animalsRepository.findAllByZoneId(rabbit.getZoneId()).stream()
                     .mapToDouble(Animals::getFoodDemand)
-                    .sum() + rabbit.getFoodDemand() > 100) {
-                throw new PrzekroczonyLimitJedzeniaException("Za mało jedzonka w tej strefie, wybierz inną");
+                    .sum() + rabbit.getFoodDemand();
+            if (foodQty > 100) {
+                throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
             animalsRepository.save(Animals.builder()
-                    .type("RABBIT")
+                    .type(rabbit.getType())
                     .name(rabbit.getName())
                     .zoneId(rabbit.getZoneId())
                     .foodDemand(rabbit.getFoodDemand())
                     .build());
-            return new BoolStringAnswer(true, "Zwierze zostało dodane do wybranej strefy");
+            return new BasicResponse(true, Constants.ANIMAL_ADD);
         } else {
-            return new BoolStringAnswer(false, "Wybrana strefa nie istnieje");
+            return new BasicResponse(false, Constants.ZONE_MISS);
         }
     }
 
