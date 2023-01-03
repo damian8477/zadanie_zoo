@@ -23,7 +23,10 @@ public class ReportServiceImpl implements ReportService {
         AtomicReference<Zone> zoneMax = new AtomicReference<>();
         AtomicReference<Double> maxQtyFoodInZone = new AtomicReference<>(0.0);
         zoneRepository.findAll().forEach((Zone zone) -> {
-            double zoneFoodQty = animalsRepository.findAllByZoneId(zone.getId()).stream().mapToDouble(Animals::getFoodDemand).sum();
+            double zoneFoodQty = animalsRepository.findAllByZoneId(zone.getId())
+                    .stream()
+                    .mapToDouble(Animals::getFoodDemand)
+                    .sum();
             if (zoneFoodQty > maxQtyFoodInZone.get()) {
                 maxQtyFoodInZone.set(zoneFoodQty);
                 zoneMax.set(zone);

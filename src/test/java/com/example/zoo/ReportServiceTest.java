@@ -48,6 +48,26 @@ public class ReportServiceTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void shouldGetReportWhenZoneListIsNotEmpty() {
+        //given
+        Zone zone = new Zone(1, "Example");
+        List<Animals> animalsList1 = new ArrayList<>(List.of(new Animals(0, "", "", 50, 1), new Animals(0, "", "", 49, 1)));
+        List<Animals> animalsList2 = new ArrayList<>(List.of(new Animals(0, "", "", 20, 1), new Animals(0, "", "", 55, 1)));
+        List<Zone> zoneList = new ArrayList<>(List.of(new Zone(1, "Example"), new Zone(2, "Example")));
+
+        //zone.setName("Example Zone");
+        ReportHighestConsumptionZoneResponse expected = new ReportHighestConsumptionZoneResponse(zone, 99);
+        // Mockito.when(zoneRepository.findAll()).thenReturn(List.of(zone));
+        Mockito.when(zoneRepository.findAll()).thenReturn(zoneList);
+        Mockito.when(animalsRepository.findAllByZoneId(1)).thenReturn(animalsList1);
+        Mockito.when(animalsRepository.findAllByZoneId(2)).thenReturn(animalsList2);
+        //when
+        ReportHighestConsumptionZoneResponse actual = tested.getReportHighestConsumptionZone();
+        //then
+        Assert.assertEquals(expected, actual);
+    }
+
 
 //    @Override
 //    public ReportHighestConsumptionZoneResponse getReportHighestConsumptionZone() {
