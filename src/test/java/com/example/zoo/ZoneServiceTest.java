@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-public class ZoneServiceTest {
+class ZoneServiceTest {
 
     @Mock
     public ZoneRepository zoneRepository;
@@ -25,7 +25,7 @@ public class ZoneServiceTest {
     public ZoneServiceImpl tested;
 
     @Test
-    public void shouldAddZoneWhenZoneByNameDoesNotExists() {
+    void shouldAddZoneWhenZoneByNameDoesNotExists() {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -38,7 +38,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    public void shouldNotAddZoneWhenZoneByNameExists() {
+    void shouldNotAddZoneWhenZoneByNameExists() {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -51,7 +51,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    public void shouldNotAddZoneWhenZoneByNullObject() {
+    void shouldNotAddZoneWhenZoneByNullObject() {
         //given
         BasicResponse expected = new BasicResponse(false, Constants.ZONE_ERROR);
         //when

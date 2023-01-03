@@ -1,7 +1,6 @@
 package com.example.zoo.model.animal;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class Animal {
 
-    public String type;
-    public String name;
-    public double foodDemand;
-    public int zoneId;
+    private String type;
+    private String name;
+    private double foodDemand;
+    private int zoneId;
 
 }

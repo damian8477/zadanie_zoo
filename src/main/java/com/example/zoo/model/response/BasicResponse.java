@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class BasicResponse {
-    boolean bool;
-    String info;
+    private boolean bool;
+    private String info;
 }

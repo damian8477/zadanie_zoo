@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -37,7 +36,7 @@ public class ZoneServiceImpl implements ZoneService {
         return zoneRepository.findAll()
                 .stream()
                 .map(zone -> new ModelMapper().map(zone, ZoneDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

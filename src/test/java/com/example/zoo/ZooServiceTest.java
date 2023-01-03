@@ -28,10 +28,9 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-public class ZooServiceTest {
+class ZooServiceTest {
     @Mock
     public ZoneRepository zoneRepository;
 
@@ -42,7 +41,7 @@ public class ZooServiceTest {
     ZooServiceImpl tested;
 
     @Test
-    public void shouldAddElephantWhenZoneFoodQtyIsLessThanLimit() throws PrzekroczonyLimitJedzeniaException {
+    void shouldAddElephantWhenZoneFoodQtyIsLessThanLimit() throws PrzekroczonyLimitJedzeniaException {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -57,7 +56,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldNotAddElephantWhenZoneNotExist() throws PrzekroczonyLimitJedzeniaException {
+    void shouldNotAddElephantWhenZoneNotExist() throws PrzekroczonyLimitJedzeniaException {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -72,7 +71,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldNotAddElephantWhenZoneFoodQtyIsOverThanLimit() {
+    void shouldNotAddElephantWhenZoneFoodQtyIsOverThanLimit() {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -87,7 +86,7 @@ public class ZooServiceTest {
 
 
     @Test
-    public void shouldAddLionWhenZoneFoodQtyIsLessThanLimit() throws PrzekroczonyLimitJedzeniaException {
+    void shouldAddLionWhenZoneFoodQtyIsLessThanLimit() throws PrzekroczonyLimitJedzeniaException {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -102,7 +101,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldNotAddLionWhenZoneNotExist() throws PrzekroczonyLimitJedzeniaException {
+    void shouldNotAddLionWhenZoneNotExist() throws PrzekroczonyLimitJedzeniaException {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -117,7 +116,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldNotAddLionWhenZoneFoodQtyIsOverThanLimit() {
+    void shouldNotAddLionWhenZoneFoodQtyIsOverThanLimit() {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -132,7 +131,7 @@ public class ZooServiceTest {
 
 
     @Test
-    public void shouldAddRabbitWhenZoneFoodQtyIsLessThanLimit() throws PrzekroczonyLimitJedzeniaException {
+    void shouldAddRabbitWhenZoneFoodQtyIsLessThanLimit() throws PrzekroczonyLimitJedzeniaException {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -147,7 +146,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldNotAddRabbitWhenZoneNotExist() throws PrzekroczonyLimitJedzeniaException {
+    void shouldNotAddRabbitWhenZoneNotExist() throws PrzekroczonyLimitJedzeniaException {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -162,7 +161,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldNotAddRabbitWhenZoneFoodQtyIsOverThanLimit() {
+    void shouldNotAddRabbitWhenZoneFoodQtyIsOverThanLimit() {
         //given
         Zone zone = new Zone();
         zone.setName("Example Zone");
@@ -176,7 +175,7 @@ public class ZooServiceTest {
     }
 
     @Test
-    public void shouldGetAnimalsWhenZoneExist(){
+    void shouldGetAnimalsWhenZoneExist(){
         //given
         List<Animals> animalList = new ArrayList<>(List.of(new Animals(), new Animals(), new Animals()));
 

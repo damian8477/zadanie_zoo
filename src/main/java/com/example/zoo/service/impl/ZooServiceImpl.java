@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -31,7 +30,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     public BasicResponse addElephant(Elephant elephant) throws PrzekroczonyLimitJedzeniaException {
         if (!isNull(zoneRepository.findById(elephant.getZoneId()))) {
-            double foodQty = getFoodQty(elephant.zoneId, elephant.getFoodDemand());
+            double foodQty = getFoodQty(elephant.getZoneId(), elephant.getFoodDemand());
             if (foodQty > 100) {
                 throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
@@ -51,7 +50,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     public BasicResponse addLion(Lion lion) throws PrzekroczonyLimitJedzeniaException {
         if (!isNull(zoneRepository.findById(lion.getZoneId()))) {
-            double foodQty = getFoodQty(lion.zoneId, lion.getFoodDemand());
+            double foodQty = getFoodQty(lion.getZoneId(), lion.getFoodDemand());
             if (foodQty > 100) {
                 throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
@@ -70,7 +69,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     public BasicResponse addRabbit(Rabbit rabbit) throws PrzekroczonyLimitJedzeniaException {
         if (!isNull(zoneRepository.findById(rabbit.getZoneId()))) {
-            double foodQty = getFoodQty(rabbit.zoneId, rabbit.getFoodDemand());
+            double foodQty = getFoodQty(rabbit.getZoneId(), rabbit.getFoodDemand());
             if (foodQty > 100) {
                 throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
@@ -91,7 +90,7 @@ public class ZooServiceImpl implements ZooService {
         try {
             return animalsRepository.findAllByZoneId(zoneRepository.findByName(name).getId()).stream()
                     .map(animals -> new ModelMapper().map(animals, AnimalsDTO.class))
-                    .collect(Collectors.toList());
+                    .toList();
         } catch (Exception e) {
             return new ArrayList<>();
         }
@@ -102,7 +101,7 @@ public class ZooServiceImpl implements ZooService {
         try {
             return animalsRepository.findAllByZoneId(zoneId).stream()
                     .map(animals -> new ModelMapper().map(animals, AnimalsDTO.class))
-                    .collect(Collectors.toList());
+                    .toList();
         } catch (Exception e) {
             return new ArrayList<>();
         }
@@ -113,7 +112,7 @@ public class ZooServiceImpl implements ZooService {
         try {
             return animalsRepository.findAllByName(name).stream()
                     .map(animals -> new ModelMapper().map(animals, AnimalsDTO.class))
-                    .collect(Collectors.toList());
+                    .toList();
         } catch (Exception e) {
             return new ArrayList<>();
         }

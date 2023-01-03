@@ -7,5 +7,10 @@ public final class Constants {
     public static final String FOOD_LIMIT_EXCEPTION = "Za mało jedzonka w tej strefie, wybierz inną";
     public static final String ANIMAL_ADD = "Zwierze zostało dodane do wybranej strefy";
     public static final String ZONE_MISS = "Wybrana strefa nie istnieje";
+    public static final String ELEPHANT = "ELEPHANT";
+    public static final String LION = "LION";
+    public static final String RABBIT = "RABBIT";
 
+    private Constants(){
+    }
 }
