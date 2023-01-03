@@ -35,7 +35,7 @@ public class ReportServiceTest {
     public ReportServiceImpl tested;
 
     @Test
-    public void shouldAddZoneWhenZoneByNameDoesNotExists() {
+    public void shouldGetEmptyReportWhenZoneListIsEmpty() {
         //given
         Zone zone = null;//new Zone();
         //zone.setName("Example Zone");
