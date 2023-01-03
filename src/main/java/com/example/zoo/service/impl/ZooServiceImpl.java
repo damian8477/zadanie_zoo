@@ -4,9 +4,9 @@ package com.example.zoo.service.impl;
 import com.example.zoo.constants.Constants;
 import com.example.zoo.exception.PrzekroczonyLimitJedzeniaException;
 import com.example.zoo.model.entity.Animals;
-import com.example.zoo.model.Elephant;
-import com.example.zoo.model.Lion;
-import com.example.zoo.model.Rabbit;
+import com.example.zoo.model.animal.Elephant;
+import com.example.zoo.model.animal.Lion;
+import com.example.zoo.model.animal.Rabbit;
 import com.example.zoo.model.response.BasicResponse;
 import com.example.zoo.model.dto.AnimalsDTO;
 import com.example.zoo.repository.AnimalsRepository;
@@ -31,9 +31,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     public BasicResponse addElephant(Elephant elephant) throws PrzekroczonyLimitJedzeniaException {
         if (!isNull(zoneRepository.findById(elephant.getZoneId()))) {
-            double foodQty = animalsRepository.findAllByZoneId(elephant.getZoneId()).stream()
-                    .mapToDouble(Animals::getFoodDemand)
-                    .sum() + elephant.getFoodDemand();
+            double foodQty = getFoodQty(elephant.zoneId, elephant.getFoodDemand());
             if (foodQty > 100) {
                 throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
@@ -49,12 +47,11 @@ public class ZooServiceImpl implements ZooService {
         }
     }
 
+
     @Override
     public BasicResponse addLion(Lion lion) throws PrzekroczonyLimitJedzeniaException {
         if (!isNull(zoneRepository.findById(lion.getZoneId()))) {
-            double foodQty = animalsRepository.findAllByZoneId(lion.getZoneId()).stream()
-                    .mapToDouble(Animals::getFoodDemand)
-                    .sum() + lion.getFoodDemand();
+            double foodQty = getFoodQty(lion.zoneId, lion.getFoodDemand());
             if (foodQty > 100) {
                 throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
@@ -73,9 +70,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     public BasicResponse addRabbit(Rabbit rabbit) throws PrzekroczonyLimitJedzeniaException {
         if (!isNull(zoneRepository.findById(rabbit.getZoneId()))) {
-            double foodQty = animalsRepository.findAllByZoneId(rabbit.getZoneId()).stream()
-                    .mapToDouble(Animals::getFoodDemand)
-                    .sum() + rabbit.getFoodDemand();
+            double foodQty = getFoodQty(rabbit.zoneId, rabbit.getFoodDemand());
             if (foodQty > 100) {
                 throw new PrzekroczonyLimitJedzeniaException(Constants.FOOD_LIMIT_EXCEPTION);
             }
@@ -122,6 +117,12 @@ public class ZooServiceImpl implements ZooService {
         } catch (Exception e) {
             return new ArrayList<>();
         }
+    }
+
+    public double getFoodQty(int zoneId, double foodQty){
+        return animalsRepository.findAllByZoneId(zoneId).stream()
+                .mapToDouble(Animals::getFoodDemand)
+                .sum() + foodQty;
     }
 
 }

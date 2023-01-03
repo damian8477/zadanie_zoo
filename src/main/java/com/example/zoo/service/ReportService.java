@@ -8,4 +8,5 @@ public interface ReportService {
     ReportHighestConsumptionZoneResponse getReportHighestConsumptionZone();
 
     ReportLeastAnimalsZoneResponse getReportLeastAnimalsZone();
+
 }

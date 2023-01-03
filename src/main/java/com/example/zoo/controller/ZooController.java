@@ -2,7 +2,9 @@ package com.example.zoo.controller;
 
 
 import com.example.zoo.exception.PrzekroczonyLimitJedzeniaException;
-import com.example.zoo.model.*;
+import com.example.zoo.model.animal.Elephant;
+import com.example.zoo.model.animal.Lion;
+import com.example.zoo.model.animal.Rabbit;
 import com.example.zoo.model.response.BasicResponse;
 import com.example.zoo.model.entity.Zone;
 import com.example.zoo.model.dto.AnimalsDTO;

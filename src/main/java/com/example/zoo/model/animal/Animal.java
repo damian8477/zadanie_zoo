@@ -1,4 +1,4 @@
-package com.example.zoo.model;
+package com.example.zoo.model.animal;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
