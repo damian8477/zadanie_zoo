@@ -38,16 +38,28 @@ class ZooApplicationTests {
 
 	@Test
 	void testMock() throws PrzekroczonyLimitJedzeniaException {
+//		ZoneServiceImpl zoneService = mock(ZoneServiceImpl.class);
+//		ZooServiceImpl zooService = mock(ZooServiceImpl.class);
 
-		ZooServiceImpl zooService = mock(ZooServiceImpl.class);
+		var animalsReposiroty = mock(AnimalsRepository.class);
+		var zoneReposiroty = mock(ZoneRepository.class);
+		zoneReposiroty.save(Zone.builder().name("Kurwa").build());
 
+		ZooServiceImpl zooService = new ZooServiceImpl(animalsReposiroty,  zoneReposiroty);
+		ZoneServiceImpl zoneService = new ZoneServiceImpl(zoneReposiroty);
+
+
+		boolean bool = isNull(zoneReposiroty.findById(1));
 		Elephant elephant = new Elephant("Elmo", 1);
-
+		zooService.addElephant(elephant);
+		zooService.addElephant(elephant);
+		zooService.addElephant(elephant);
+		zooService.addElephant(elephant);
 		//when(zooService.addElephant(elephant2)).thenThrow(PrzekroczonyLimitJedzeniaException.class);
 		//assertThatExceptionOfType(PrzekroczonyLimitJedzeniaException.class).isThrownBy(() -> zooService.addElephant(elephant));
-		when(zooService.addElephant(elephant)).thenReturn(new BasicResponse(true, Constants.ANIMAL_ADD));
-
-		assertTrue(zooService.addElephant(elephant).isBool());
+		//when(zooService.addElephant(elephant)).thenReturn(new BasicResponse(true, Constants.ANIMAL_ADD));
+		BasicResponse basicResponse = zooService.addElephant(elephant);
+		assertFalse(basicResponse.isBool());
 	}
 //	ZooApplicationTests(ZoneServiceImpl zoneService) {
 //		this.zoneService = zoneService;
